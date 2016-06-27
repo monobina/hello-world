@@ -1,0 +1,23 @@
+library(dplyr)
+library(RODBC)
+
+
+##function that converts the JDE julian time into gregorian##
+fnDateFromServer <- function(server_time){
+  ## fn takes the date variable as a string then parses and converts to a char string
+  datestr <- as.character(server_time)
+  if (server_time > 100000) {
+    cent <- as.numeric(substr(datestr,1,1))
+    yr <- as.numeric(substr(datestr,2,3))
+    days <- as.numeric(substr(datestr,4,6)) - 1
+  } else {
+    cent <- 0
+    yr <- as.numeric(substr(datestr,1,2))
+    days <- as.numeric(substr(datestr,3,5)) - 1
+  }
+  
+  year <- 1900 + cent*100 + yr
+  o_date <- paste0(year,"-01-01")
+  d_return <- as.Date(days, origin = o_date, format = "%Y-%m-%d")
+  as.character(d_return)
+}
