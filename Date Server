@@ -1,6 +1,6 @@
 library(dplyr)
 library(RODBC)
-
+# so far so good
 
 ##function that converts the JDE julian time into gregorian##
 fnDateFromServer <- function(server_time){
